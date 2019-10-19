@@ -87,15 +87,15 @@ d3.json("/getstates").then(function(response) {
 function getMapData()
 {
     var selectedstate = d3.select("#ddlStates").property("value")
-//    d3.select("#map").html("")
+    console.log(selectedstate)
+    d3.select("#map").html("")
     d3.json("/getMapData/"+selectedstate).then(function(response) {
         var geourl = "https://developer.nrel.gov/api/alt-fuel-stations/v1.json?fuel_type=ELEC&state="+response.state_abv+"&api_key=ePJR3i7vRMUHuW4fGrtKVLhgjIk2DHosX4AVbBl3&format=JSON";
 
         d3.json(geourl).then(function(response_nrel) {
         //$.getJSON(geourl, function(response) {
           // Create a new marker cluster group
-          try{myMap.remove()}catch(err){}
-        myMap = L.map("map", {
+        var myMap = new L.map("map", {
           center: [parseFloat(response.state_lat), parseFloat(response.state_lon)], // City coordinates will come here
           zoom:7
         });
@@ -134,4 +134,3 @@ function getMapData()
     });
 }
 
-var myMap = null;
