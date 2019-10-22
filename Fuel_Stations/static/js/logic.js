@@ -1,3 +1,6 @@
+
+
+
 // Creating map object
 //var myMap = L.map("map", {
 //  center: [39, -98], // City coordinates will come here
@@ -79,6 +82,7 @@ d3.json("/getstates").then(function(response) {
         str = str+"<option value='"+ stateslist[i]+"'>"+stateslist[i]+"</option>";
     }
     //alert(str);
+
     d3.select("#ddlStates").html(str);
 
 
@@ -86,6 +90,10 @@ d3.json("/getstates").then(function(response) {
 
 function getMapData()
 {
+   myCaptcha.validate();
+   if(d3.select("#txtCaptcha")._groups[0][0].placeholder == "Submit successful!")
+   {
+
     var selectedstate = d3.select("#ddlStates").property("value")
 //    d3.select("#map").html("")
     d3.json("/getMapData/"+selectedstate).then(function(response) {
@@ -130,8 +138,33 @@ function getMapData()
           // Add our marker cluster layer to the map
           myMap.addLayer(markers);
 
+          myCaptcha.reset()
         });
     });
+    }
 }
-
 var myMap = null;
+var myCaptcha = new jCaptcha({
+
+    // set callback function
+    callback: function(response, $captchaInputElement) {
+
+        if (response == 'success') {
+
+            $captchaInputElement[0].classList.remove('error');
+            $captchaInputElement[0].classList.add('success');
+            $captchaInputElement[0].placeholder = 'Submit successful!';
+
+        }
+
+        if (response == 'error') {
+
+            $captchaInputElement[0].classList.remove('success');
+            $captchaInputElement[0].classList.add('error');
+            $captchaInputElement[0].placeholder = 'Please try again!';
+
+        }
+
+    }
+
+});
