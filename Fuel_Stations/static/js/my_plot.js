@@ -59,26 +59,26 @@ function buildPlot() {
           Plotly.newPlot("plot", data1, layout);
           
           // variable for x and y for 2nd display
-          var plotly_data2 = response_nrel.fuel_stations.map(data => data.access_code)
-          console.log(plotly_data2);
-          const counts2 = Object.create(null);
-          plotly_data2.forEach(x => {
-            counts2[x] = counts2[x] ? counts2[x] + 1 : 1;
+          var plotly_pie = response_nrel.fuel_stations.map(data => data.access_code)
+          console.log(plotly_pie);
+          const breakdown = Object.create(null);
+          plotly_pie.forEach(x => {
+            breakdown[x] = breakdown[x] ? breakdown[x] + 1 : 1;
           });
-          console.log(counts2);
+          console.log(breakdown);
        
-          function returnValues(){
-            return Object.values(counts2);
+          function returnPie(){
+            return Object.values(breakdown);
           };
        
-          var x = [...new Set(plotly_data2)];
-          var y = returnValues(counts2);
+          var x2 = [...new Set(plotly_pie)];
+          var y2 = returnPie(breakdown);
 
           // create trace for plotly
           var trace2 = {
             type: "pie",
-            labels: x,
-            values: y
+            labels: x2,
+            values: y2
           };
 
           var data2 = [trace2];
