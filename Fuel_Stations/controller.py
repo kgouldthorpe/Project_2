@@ -36,7 +36,7 @@ geo_states = Base.classes.geo_states
 @app.route("/")
 def index():
     """Return the homepage."""
-    return render_template("index.html")
+    return render_template("index2.html")
 
 @app.route("/getstates")
 def getstates():
@@ -84,8 +84,34 @@ def getMapData(selectedstate):
         "state_lat" : state_lat,
         "state_lon" : state_lon
     }
-    return jsonify(data);
+    return jsonify(data)
 
+@app.route("/buildPlot/<selectedstate>")
+def buildPlot(selectedstate):
+    print(selectedstate, file=sys.stdout)
+    sel = [
+        geo_states.name,
+        geo_states.abv,
+        geo_states.latitude,
+        geo_states.longitude]
+
+    results = db.session.query(*sel).filter(geo_states.name == selectedstate).all()
+    df = pd.DataFrame(results, columns=['name','abv','latitude','longitude'])
+    state_name = df.iloc[0, 0]
+    print(state_name, file=sys.stdout)
+    state_abv = df.iloc[0, 1]
+    print(state_abv, file=sys.stdout)
+    state_lat = str(df.iloc[0, 2])
+    print(state_lat, file=sys.stdout)
+    state_lon = str(df.iloc[0, 3])
+    print(state_lon, file=sys.stdout)
+    data = {
+        "state_name": state_name,
+        "state_abv" : state_abv,
+        "state_lat" : state_lat,
+        "state_lon" : state_lon
+    }
+    return jsonify(data)
 
 if __name__ == "__main__":
     app.run()
