@@ -34,9 +34,14 @@ geo_states = Base.classes.geo_states
 #################################################
 
 @app.route("/")
+def landing():
+    """Return the homepage."""
+    return render_template("landing.html")
+
+@app.route("/find")
 def index():
     """Return the homepage."""
-    return render_template("index2.html")
+    return render_template("index.html")
 
 @app.route("/getstates")
 def getstates():
@@ -85,6 +90,7 @@ def getMapData(selectedstate):
         "state_lon" : state_lon
     }
     return jsonify(data)
+
 
 @app.route("/buildPlot/<selectedstate>")
 def buildPlot(selectedstate):

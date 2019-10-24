@@ -34,17 +34,24 @@
     <!-- Our CSS -->
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
 
-
-
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="static/js/my_plot.js"></script>
   </head>
   <body>
-<div><span>Select State &nbsp;</span><select id="ddlStates"></select><br />
+<div>&nbsp;&nbsp;<span>Select State &nbsp;</span><select id="ddlStates"></select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input class="jCaptcha" type="text" placeholder="Type in result please" id="txtCaptcha">
-    <input type="button" name="Submit" id="btnSubmit" onclick="getMapData();" value="Submit"/>
+    <input type="button" name="Submit" id="btnSubmit" onclick="getMapData();" value="Get Map and Stats"/>
 </div>
+
     <div id="map"></div>
     <script type="text/javascript" src="static/js/config.js"></script>
-    <script type="text/javascript" src="static/js/logic.js"></script>
+    <script type="text/javascript" src="static/js/logic.js"></script> <hr>
+  <div id="plot">
+    <script src="static/js/my_plot.js"></script>
+    </div><hr/>
+    <div id="pie">
+    <script src="static/js/my_plot.js"></script>
+    </div>
 
   </body>
 </html>

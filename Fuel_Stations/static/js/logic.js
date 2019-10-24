@@ -130,7 +130,7 @@ function getMapData()
 
               // Add a new marker to the cluster group and bind a pop-up
               markers.addLayer(L.marker([station.latitude, station.longitude])
-                .bindPopup(station.ev_network));
+                .bindPopup(station.ev_network + "<br/>" + station.access_code));
             }
 
           }
@@ -139,6 +139,9 @@ function getMapData()
           myMap.addLayer(markers);
 
           myCaptcha.reset()
+
+          buildPlot();
+
         });
     });
     }

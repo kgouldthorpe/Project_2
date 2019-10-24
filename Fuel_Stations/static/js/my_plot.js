@@ -1,16 +1,18 @@
-d3.json("/getstates").then(function(response) {
+/*d3.json("/getstates").then(function(response) {
     var stateslist = response.name;
     var str = "";
     for(i=0; i< stateslist.length; i++)
     {
       str = str+"<option value='"+ stateslist[i]+"'>"+stateslist[i]+"</option>";
-    } 
+    }
     //alert(str);
     d3.select("#ddlStates").html(str);
-});
+});*/
 
 function buildPlot() {
      var selectedstate = d3.select("#ddlStates").property("value");
+
+
 
     d3.json("/buildPlot/"+selectedstate).then(function(response)  {
       var geourl = "https://developer.nrel.gov/api/alt-fuel-stations/v1.json?fuel_type=ELEC&state="+response.state_abv+"&api_key=ePJR3i7vRMUHuW4fGrtKVLhgjIk2DHosX4AVbBl3&format=JSON";
